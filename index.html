@@ -87,13 +87,6 @@
         border-radius: 8px;
         transition: height 0.3s ease-in-out;
       }
-      .hero-secondary-text {
-        font-size: 1.1rem;
-        color: var(--text-medium-dark);
-        max-width: 700px;
-        line-height: 1.6;
-        margin-top: 15px;
-      }
       
       /* General Components */
       .section-header { text-align: center; margin-bottom: 80px; }
@@ -232,9 +225,6 @@
               <div class="form-container" id="quiz-form">
                 <iframe src="https://getformly.app/m12sFE" class="form-embed" allow="fullscreen" loading="lazy"></iframe>
               </div>
-              <p class="hero-secondary-text">
-                Como emprendedor exitoso, generas más dinero que la mayoría de empleados. Pero los bancos siguen viéndote como "alto riesgo". El proceso hipotecario tradicional parece diseñado específicamente para rechazar a personas como tú.
-              </p>
             </div>
           </div>
         </div>
@@ -493,8 +483,10 @@
           const iframe = document.querySelector(".form-embed");
           const container = document.querySelector(".form-container");
           if (iframe && e.data.height > 300) {
+            // Add some buffer to the height received from the form
             const newHeight = (e.data.height + 40) + "px";
             iframe.style.height = newHeight;
+            // On mobile, also adjust the container's min-height
             if (window.innerWidth <= 768) {
                container.style.minHeight = newHeight;
             }
