@@ -978,16 +978,23 @@
         });
       });
 
-      // Dynamic Iframe Height Adjustment
+      // Dynamic Iframe Event Listener
       window.addEventListener("message", function (e) {
+        // --- NEW: HANDLES REDIRECTION ---
+        // Checks if the message from the iframe is a redirect command.
+        if (e.data.type === "redirect" && e.data.url) {
+          // Navigates the main page to the URL provided by the quiz.
+          window.location.href = e.data.url;
+        }
+
+        // --- EXISTING: HANDLES HEIGHT ADJUSTMENT ---
+        // Checks if the message is for resizing the iframe.
         if (e.data.type === "resize" && e.data.height) {
           const iframe = document.querySelector(".form-embed");
           const container = document.querySelector(".form-container");
           if (iframe && e.data.height > 300) {
-            // Add some buffer to the height received from the form
             const newHeight = e.data.height + 40 + "px";
             iframe.style.height = newHeight;
-            // On mobile, also adjust the container's min-height
             if (window.innerWidth <= 768) {
               container.style.minHeight = newHeight;
             }
@@ -997,3 +1004,5 @@
     </script>
   </body>
 </html>
+
+
